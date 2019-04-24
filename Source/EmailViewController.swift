@@ -37,7 +37,7 @@ class EmailViewController: MFMailComposeViewController, BaseViewControllerType {
         self.navigationBar.barStyle = .default
         if var messageBody = data?.message {
             var isHtml = false
-            let showLink = AppManager.manager.appModel()?.design?.showLink == 1
+            let showLink = AppManager.manager.appModel()?.design?.isShowLink ?? false
             if showLink {
                 messageBody.append("<br /><br />\(NSLocalizedString("mEM_sentFrom", comment: "Sent from")) <a href=\"http://ibuildapp.com\">iBuildApp</a>")
                 isHtml = true
