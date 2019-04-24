@@ -33,13 +33,12 @@ class EmailViewController: MFMailComposeViewController, BaseViewControllerType {
         
         self.mailComposeDelegate = self
         
-        
         self.navigationBar.barStyle = .default
         if var messageBody = data?.message {
             var isHtml = false
             let showLink = AppManager.manager.appModel()?.design?.isShowLink ?? false
             if showLink {
-                messageBody.append("<br /><br />\(NSLocalizedString("mEM_sentFrom", comment: "Sent from")) <a href=\"http://ibuildapp.com\">iBuildApp</a>")
+                messageBody.append("<br /><br />\(NSLocalizedString("Email.Message.SentFrom", comment: "Sent from")) <a href=\"http://ibuildapp.com\">iBuildApp</a>")
                 isHtml = true
             }
             
@@ -52,7 +51,7 @@ class EmailViewController: MFMailComposeViewController, BaseViewControllerType {
         }
         
         if var subject = data?.subject {
-            subject.append(" (\(NSLocalizedString("mEM_sentFrom", comment: "Sent from"))iBuildApp)")
+            subject.append(" (\(NSLocalizedString("Email.Message.SentFrom", comment: "Sent from"))iBuildApp)")
             self.setSubject(subject)
         }
     }
@@ -75,9 +74,9 @@ extension EmailViewController: MFMailComposeViewControllerDelegate {
         case .saved:
             break
         case .sent:
-            self.showAlertController(title: nil, message: NSLocalizedString("mEM_sendingSuccessMessage", comment: "Thank You - your information has been sent"), buttonTitle: NSLocalizedString("mEM_sendingSuccessOkButton", comment: "OK"))
+            self.showAlertController(title: nil, message: NSLocalizedString("Email.Message.Success", comment: "Thank You - your information has been sent"), buttonTitle: NSLocalizedString("Common.Text.Ok", comment: "OK"))
         case .failed:
-            self.showAlertController(title: nil, message: NSLocalizedString("mEM_sendingErrorTitle", comment: "Email"), buttonTitle: NSLocalizedString("mEM_sendingSErrorOkButton", comment: "OK"))
+            self.showAlertController(title: nil, message: NSLocalizedString("Email.Message.Error.Title", comment: "Email"), buttonTitle: NSLocalizedString("Common.Text.Ok", comment: "OK"))
         default:
             break
         }
@@ -93,7 +92,7 @@ class AlertMessageViewController: UIAlertController, BaseViewControllerType {
         
         self.title = title
         self.message = message
-        self.addAction(UIAlertAction(title: NSLocalizedString("core_invalidPhoneNumberOkButtonTitle", comment: "OK"), style: .default))
+        self.addAction(UIAlertAction(title: NSLocalizedString("Common.Text.Ok", comment: "OK"), style: .default))
     }
     
     override var preferredStyle: UIAlertController.Style {
