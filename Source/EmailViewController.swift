@@ -38,7 +38,7 @@ class EmailViewController: MFMailComposeViewController, BaseViewControllerType {
             var isHtml = false
             let showLink = AppManager.manager.appModel()?.design?.isShowLink ?? false
             if showLink {
-                messageBody.append("<br /><br />\(NSLocalizedString("Email.Message.SentFrom", comment: "Sent from")) <a href=\"http://ibuildapp.com\">iBuildApp</a>")
+                messageBody.append("<br /><br />\(Localization.Email.Message.sentFrom) <a href=\"http://ibuildapp.com\">iBuildApp</a>")
                 isHtml = true
             }
             
@@ -51,7 +51,7 @@ class EmailViewController: MFMailComposeViewController, BaseViewControllerType {
         }
         
         if var subject = data?.subject {
-            subject.append(" (\(NSLocalizedString("Email.Message.SentFrom", comment: "Sent from"))iBuildApp)")
+            subject.append(" (\(Localization.Email.Message.sentFrom)iBuildApp)")
             self.setSubject(subject)
         }
     }
@@ -74,9 +74,9 @@ extension EmailViewController: MFMailComposeViewControllerDelegate {
         case .saved:
             break
         case .sent:
-            self.showAlertController(title: nil, message: NSLocalizedString("Email.Message.Success", comment: "Thank You - your information has been sent"), buttonTitle: NSLocalizedString("Common.Text.Ok", comment: "OK"))
+            self.showAlertController(title: nil, message: Localization.Email.Message.success, buttonTitle: Localization.Common.Text.ok)
         case .failed:
-            self.showAlertController(title: nil, message: NSLocalizedString("Email.Message.Error.Title", comment: "Email"), buttonTitle: NSLocalizedString("Common.Text.Ok", comment: "OK"))
+            self.showAlertController(title: nil, message: Localization.Email.Message.Error.title, buttonTitle: Localization.Common.Text.ok)
         default:
             break
         }
@@ -92,7 +92,7 @@ class AlertMessageViewController: UIAlertController, BaseViewControllerType {
         
         self.title = title
         self.message = message
-        self.addAction(UIAlertAction(title: NSLocalizedString("Common.Text.Ok", comment: "OK"), style: .default))
+        self.addAction(UIAlertAction(title: Localization.Common.Text.ok, style: .default))
     }
     
     override var preferredStyle: UIAlertController.Style {

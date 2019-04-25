@@ -25,7 +25,7 @@ public class EmailModuleRouter: BaseRouter<EmailModuleRoute> {
         if MFMailComposeViewController.canSendMail() {
             return EmailViewController(type: module?.config?.type, data: module?.data)
         } else {
-            return AlertMessageViewController(title: NSLocalizedString("Core.Message.CantSendEmail.Title", comment: "Mail cannot be send"), message: NSLocalizedString("Core.Message.CantSendEmail.Body", comment: "This device not configured to send mail"))
+            return AlertMessageViewController(title: Localization.Core.Message.CantSendEmail.title, message: Localization.Core.Message.CantSendEmail.body)
         }
     }
     
