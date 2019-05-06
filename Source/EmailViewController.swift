@@ -13,6 +13,7 @@ import MessageUI
 
 class EmailViewController: MFMailComposeViewController, BaseViewControllerType {
     var options: TransitionOptions?
+    var showLogin: Bool = false
     
     // MARK: - Private properties
     /// Widget type indentifier
@@ -86,6 +87,7 @@ extension EmailViewController: MFMailComposeViewControllerDelegate {
 
 class AlertMessageViewController: UIAlertController, BaseViewControllerType {
     var options: TransitionOptions?
+    var showLogin: Bool = false
     
     public convenience init(title: String?, message: String?) {
         self.init()
