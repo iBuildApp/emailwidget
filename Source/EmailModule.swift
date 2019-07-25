@@ -20,10 +20,7 @@ public class EmailModule: BaseModule, ModuleType {
     internal var data: DataModel?
     
     public override class func canHandle(config: WidgetModel) -> Bool {
-        if config.type == "email" {
-            return true
-        }
-        return false
+        return config.type == "taptoemail"
     }
     
     public required init() {
