@@ -21,12 +21,12 @@ public class EmailModuleRouter: BaseRouter<EmailModuleRoute> {
         self.module = module
     }
     
+    public override var hasViewController: Bool {
+        return false
+    }
+    
     public override func generateRootViewController() -> BaseViewControllerType {
-        if MFMailComposeViewController.canSendMail() {
-            return EmailViewController(type: module?.config?.type, data: module?.data)
-        } else {
-            return AlertMessageViewController(title: Localization.Core.Message.CantSendEmail.title, message: Localization.Core.Message.CantSendEmail.body)
-        }
+        return EmailViewController(type: module?.config?.type, data: module?.data)
     }
     
     public override func prepareTransition(for route: EmailModuleRoute) -> RouteTransition {
@@ -36,6 +36,13 @@ public class EmailModuleRouter: BaseRouter<EmailModuleRoute> {
     }
     
     public override func rootTransition() -> RouteTransition {
-        return self.prepareTransition(for: .root)
+        if MFMailComposeViewController.canSendMail() {
+            return self.prepareTransition(for: .root)
+        } else {
+            if let rootController = UIApplication.shared.keyWindow?.rootViewController {
+                rootController.showAlertController(title: Localization.Core.Message.CantSendEmail.title, message: Localization.Core.Message.CantSendEmail.body, buttonTitle: Localization.Common.Text.ok)
+            }
+            return RouteTransition()
+        }
     }
 }
