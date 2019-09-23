@@ -37,6 +37,13 @@ public class EmailModuleRouter: BaseRouter<EmailModuleRoute> {
     
     public override func rootTransition() -> RouteTransition {
         if MFMailComposeViewController.canSendMail() {
+            guard let recipient = self.module?.data?.mailto, recipient.isValidEmail() else {
+                if let rootController = UIApplication.shared.keyWindow?.rootViewController {
+                    rootController.showAlertController(title: Localization.Core.Message.InvalidEmailAddress.title, message: Localization.Core.Message.InvalidEmailAddress.body, buttonTitle: Localization.Common.Text.ok)
+                }
+                return RouteTransition()
+            }
+            
             return self.prepareTransition(for: .root)
         } else {
             if let rootController = UIApplication.shared.keyWindow?.rootViewController {
